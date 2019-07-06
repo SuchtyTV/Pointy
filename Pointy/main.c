@@ -21,9 +21,6 @@ int main(int argc, char * argv[]) {
             /*
              This is a point to be stored:
              (double,double,double)\0
-             Calloc is better, because we can later break
-             creating the list of points/rectangels, when first char is not '(',
-             which is not necessarily the case for malloc.
              */
             data.points[i] = calloc(MAX_DIGITS_POINTS,1);
             
@@ -41,14 +38,6 @@ int main(int argc, char * argv[]) {
                                                               SPACE_FOR_RECTANGLES */
     if(data.rectangles != NULL){
         for(int i = 0; i < SPACE_FOR_RECTANGLES; i++){
-            /*
-             This is a rectangle to be stored:
-             ((double,double,double),(double,double,double),(double,double,double))\0
-             
-             Calloc is better, because we can later break
-             creating the list of points/rectangels, when first char is not '(',
-             which is not necessarily the case for malloc.
-             */
             data.rectangles[i] = calloc(MAX_DIGITS_RECT, 1);
             if(data.rectangles[i] == NULL){
                 fprintf(stderr, "Could not allocate enough memory to perform compilation.");
@@ -67,9 +56,10 @@ int main(int argc, char * argv[]) {
     data.rectangels_index = (size_t)-1;
     data.actual_index = 0; //counter
     
+    //Setting up
+    setup();
     //State machine
     for (char ch = fgetc(fp); ch != EOF; ch = fgetc(fp)) {
-        putc(ch, stdin);
         if(isspace(ch)){
             continue;
         }
@@ -78,8 +68,12 @@ int main(int argc, char * argv[]) {
     
     printPointList(data.bool_appended_points, data.points, data.points_index);
     printRectangleList(data.bool_appended_rectangle, data.rectangles, data.rectangels_index);
-    printf("print(points)\n");
-    printf("print(rectangels)\n");
+    
+    printf("for val in points:\n");
+    printf("  (x,y,z) = val\n");
+    printf("  ax.scatter(x, y, z, marker='o')\n\n");
+    
+    printf("plt.show()");
     
     fclose(stdout); //needed?
     fclose(fp);
@@ -88,7 +82,6 @@ int main(int argc, char * argv[]) {
 
 void printPointList(char appended, char** points, size_t index){
     if(!appended){
-        appended = 1;
         printf("points =  [\n");
     } else {
         printf("points.extend(\n");
@@ -101,11 +94,11 @@ void printPointList(char appended, char** points, size_t index){
     } else {
         printf("])\n");
     }
+    appended = 1;
 }
 
 void printRectangleList(char appended, char** rectangles, size_t index){
     if(!appended){
-        appended = 1;
         printf("rectangle =  [\n");
     } else {
         printf("rectangle.extend(\n");
@@ -118,4 +111,13 @@ void printRectangleList(char appended, char** rectangles, size_t index){
     } else {
         printf("])\n");
     }
+    appended = 1;
+}
+
+void setup(){
+    printf("from mpl_toolkits.mplot3d import Axes3D\n");
+    printf("import matplotlib.pyplot as plt\n");
+    printf("import numpy as np\n\n");
+    printf("fig = plt.figure()\n");
+    printf("ax = fig.add_subplot(111, projection='3d')\n\n");
 }

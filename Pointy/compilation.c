@@ -95,8 +95,10 @@ void endParenFunction(struct State* state, struct Data* data, char ch){
             data->points[data->points_index][data->actual_index++] = '\0';
             break;
         case rectangle:
-            data->rectangles[data->rectangels_index][data->actual_index++] = '\0';
-            break;
+            if(data->numbers_written > 9){
+                data->rectangles[data->rectangels_index][data->actual_index++] = '\0';
+                break;
+            }
         default:
             break;
     }
