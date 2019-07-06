@@ -1,5 +1,5 @@
 # Pointy
-This code is rather a exercise than is an actually useful program.
+**This code is rather a exercise than is an actually useful program.**
 This command-line tool compiles a list of points and rectangels into a python-code, 
 which will display all these shapes in a diagram when executed.
 
