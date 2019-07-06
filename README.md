@@ -39,6 +39,6 @@ print(points)
 print(rectangels)
 ~~~~
 
-## **Supported Platforms:**
+## **Supported platforms:**
 
 * Unix/Unix-like platforms
