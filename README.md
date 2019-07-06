@@ -38,3 +38,7 @@ rectangels =  [
 print(points)
 print(rectangels)
 ~~~~
+
+## **Supported Platforms:**
+
+* Unix/Unix-like platforms
