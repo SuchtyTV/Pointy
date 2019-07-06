@@ -19,24 +19,29 @@ R((2,3,4),(9,9,9),(3,4,5))
 
 --> 
 ~~~~
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+ax = fig.add_subplot(111, projection='3d')
+fig = plt.figure()
 points =  [
 (1.2,45,6),
 (7,8,5),
 (10,77,88),
 (99999,1,1),
-]
-points.extend([
 (5,7,6),
 (1,2,3),
 (4,5,6),
 (2,1,1),
-])
-rectangels =  [
+]
+rectangle =  [
 ((1,1,1),(2,2,2),(1,3,4)),
 ((2,3,4),(9,9,9),(3,4,5)),
 ]
-print(points)
-print(rectangels)
+for val in points:
+  (x,y,z) = val
+  ax.scatter(x, y, z, marker=m)
+plt.show()
 ~~~~
 
 ## **Supported platforms:**
