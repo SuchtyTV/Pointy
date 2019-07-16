@@ -81,3 +81,26 @@ which will show:
 ## **Supported platforms:**
 
 * Unix/Unix-like platforms
+
+## **Usement:**
+
+To use the programm first create a file containing the shapes you want to display:
+
+~~~~
+cat >> data.txt
+...
+~~~~
+
+Then execute the compiled program with:
+
+~~~~
+./Program data.txt >> dest.py
+...
+~~~~
+
+You can then execute the program:
+
+~~~~
+python3 dest.py
+...
+~~~~
