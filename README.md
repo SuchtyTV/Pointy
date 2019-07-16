@@ -76,7 +76,7 @@ python3 filename.py
 
 which will show:
 
-![Outcome] https://serving.photos.photobox.com/25541494cc4bccdebb50a027258628d3a3585a7bd38bb6f81111106457e570efe63ab2e6.jpg "Outcome")
+![Outcome] https://serving.photos.photobox.com/25541494cc4bccdebb50a027258628d3a3585a7bd38bb6f81111106457e570efe63ab2e6.jpg
 
 ## **Supported platforms:**
 
