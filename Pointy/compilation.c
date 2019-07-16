@@ -1,10 +1,5 @@
-//
-//  compilation.c
-//  Pointy
-//
 //  Created by Niclas Schwalbe on 05.07.19.
 //  Copyright © 2019 Niclas Schwalbe. All rights reserved.
-//
 
 #include "compilation.h"
 #include "main.h"
@@ -44,7 +39,7 @@ void nameFunction(struct State* state, struct Data* data, char ch){
         state->lastletter = openparen;
         switch (state->shape) {
             case rectangle:
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 break;
             case point:
                 data->points[data->points_index][data->actual_index++] = ch;
@@ -61,7 +56,7 @@ void openParenFunction(struct State* state, struct Data* data, char ch){
     if(ch == '('){
         switch (state->shape) {
             case rectangle:
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 state->lastletter = openparen;
                 break;
             case point:
@@ -75,7 +70,7 @@ void openParenFunction(struct State* state, struct Data* data, char ch){
         data->numbers_written++;
         switch (state->shape) {
             case rectangle:
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 state->lastletter = number;
                 break;
             case point:
@@ -96,7 +91,7 @@ void endParenFunction(struct State* state, struct Data* data, char ch){
             break;
         case rectangle:
             if(data->numbers_written > 9){
-                data->rectangles[data->rectangels_index][data->actual_index++] = '\0';
+                data->triangle[data->triangel_index][data->actual_index++] = '\0';
                 break;
             }
         default:
@@ -129,14 +124,14 @@ void endParenFunction(struct State* state, struct Data* data, char ch){
         return;
     }
     if(ch == 'R'){
-        if(++(data->rectangels_index) >= SPACE_FOR_RECTANGLES){
-            printRectangleList(data->bool_appended_rectangle, data->rectangles, (data->rectangels_index)-1);
-            data->bool_appended_rectangle = 1;
+        if(++(data->triangel_index) >= SPACE_FOR_RECTANGLES){
+            printRectangleList(data->bool_appended_triangel, data->triangle, (data->triangel_index)-1);
+            data->bool_appended_triangel = 1;
             //clear all strings
-            for(int i = 0; i < data->rectangels_index; i++){
-                data->rectangles[i] = calloc(MAX_DIGITS_RECT, 1);
+            for(int i = 0; i < data->triangel_index; i++){
+                data->triangle[i] = calloc(MAX_DIGITS_RECT, 1);
             }
-            data->rectangels_index = 0;
+            data->triangel_index = 0;
         }
         data->actual_index = 0;
         state->lastletter = name;
@@ -147,7 +142,7 @@ void endParenFunction(struct State* state, struct Data* data, char ch){
     if(ch == ','){
         if(state->shape == rectangle){
             if(data->numbers_written < 9){
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 state->lastletter = comma;
             } else {
                 state->lastletter = error;
@@ -157,8 +152,8 @@ void endParenFunction(struct State* state, struct Data* data, char ch){
     }
     if(ch == ')'){
         if(state->shape == rectangle){
-            data->rectangles[data->rectangels_index][data->actual_index++] = ch;
-            data->rectangles[data->rectangels_index][data->actual_index++] = '\0';
+            data->triangle[data->triangel_index][data->actual_index++] = ch;
+            data->triangle[data->triangel_index][data->actual_index++] = '\0';
             return;
         }
     }
@@ -179,12 +174,12 @@ void commaFunction(struct State* state, struct Data* data, char ch){
         case rectangle:
             if(isdigit(ch)){
                 data->numbers_written++;
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 state->lastletter = number;
                 break;
             }
             if(ch == '('){
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 state->lastletter = openparen;
                 break;
             }
@@ -198,7 +193,7 @@ void numberFunction(struct State* state, struct Data* data, char ch){
     if(isdigit(ch)){
         switch (state->shape) {
             case rectangle:
-                data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                data->triangle[data->triangel_index][data->actual_index++] = ch;
                 break;
             case point:
                 data->points[data->points_index][data->actual_index++] = ch;
@@ -212,7 +207,7 @@ void numberFunction(struct State* state, struct Data* data, char ch){
         switch (state->shape) {
             case rectangle:
                 if(data->numbers_written <= 9){
-                    data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                    data->triangle[data->triangel_index][data->actual_index++] = ch;
                     state->lastletter = comma;
                 } else {
                     state->lastletter = error;
@@ -234,7 +229,7 @@ void numberFunction(struct State* state, struct Data* data, char ch){
         switch (state->shape) {
             case rectangle:
                 if(data->numbers_written%3 == 0){
-                    data->rectangles[data->rectangels_index][data->actual_index++] = ch;
+                    data->triangle[data->triangel_index][data->actual_index++] = ch;
                     state->lastletter = endparen;
                 } else {
                     state->lastletter = error;
