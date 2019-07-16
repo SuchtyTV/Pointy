@@ -98,7 +98,7 @@ Then execute the compiled program with:
 ...
 ~~~~
 
-You can then execute the program:
+You can then execute the python-script:
 
 ~~~~
 python3 dest.py
